@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Leaderboard
 const leaderboardContainer = document.querySelector('.leaderboard-container');
-const localStorageDataPlayer = JSON.parse(localStorage.getItem('playerData'));
+const localStorageDataPlayer = JSON.parse(localStorage.getItem('playerData')) || [];
 let leaderboardPage = '';
 
 localStorageDataPlayer.forEach(leaderboard => {
