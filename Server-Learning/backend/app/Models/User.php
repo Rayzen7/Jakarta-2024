@@ -57,4 +57,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Scores::class, 'user_id');
     }
+
+    public function games()
+    {
+        return $this->hasMany(Games::class, 'created_by');
+    }
 }

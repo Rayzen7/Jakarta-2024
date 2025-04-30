@@ -26,4 +26,14 @@ class Scores extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+        /**
+     * Get the user that owns the GameVersion
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function versions()
+    {
+        return $this->belongsTo(GameVersion::class, 'game_version_id');
+    }
 }

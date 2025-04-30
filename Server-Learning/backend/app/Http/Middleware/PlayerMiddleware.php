@@ -25,8 +25,6 @@ class PlayerMiddleware
                 'message' => 'Your not the player'
             ], 403);
         }
-
-        Auth::login($user->tokenable);
         return $next($request);
     }
 }

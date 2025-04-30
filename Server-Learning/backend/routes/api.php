@@ -18,7 +18,7 @@ Route::prefix('/v1')->group(function() {
     
     Route::middleware('auth')->group(function() {
         Route::middleware('admin')->group(function() {
-            Route::middleware('role:admin')->group(function() {
+            Route::prefix('/admin')->group(function() {
                 Route::resource('/admins', AdminController::class);
                 Route::resource('/users', UserController::class);
             });
@@ -32,6 +32,11 @@ Route::prefix('/v1')->group(function() {
             Route::get('/games/{slug}/scores', [ScoreController::class, 'index']);
             Route::post('/games/{slug}/scores', [ScoreController::class, 'store']);
         });
-    });
 
+        Route::middleware('player')->group(function() {
+            Route::prefix('/users')->group(function() {
+                Route::get('/{username}', [UserController::class, 'showUser']);
+            });
+        });
+    });
 });
