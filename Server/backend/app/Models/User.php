@@ -18,6 +18,7 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
+    protected $table = 'users';
     protected $fillable = [
         'username',
         'password',
@@ -45,5 +46,15 @@ class User extends Authenticatable
         return [
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Get all of the comments for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function scores()
+    {
+        return $this->hasMany(Scores::class, 'user_id');
     }
 }

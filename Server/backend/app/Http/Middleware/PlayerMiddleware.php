@@ -7,25 +7,26 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class RoleMiddleware
+class PlayerMiddleware
 {
     /**
      * Handle an incoming request.
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, $role): Response
+    public function handle(Request $request, Closure $next): Response
     {
-        $user = Auth::user(); 
+        $user = Auth::user();
         $username = preg_replace('/\d+$/', '', $user->username);
-
-        if ($username != $role) {
+        
+        if ($username != 'player') {
             return response()->json([
-                'status' => 'forbidden',
-                'message' => 'You are not the administrator'
+                'status' => 'Forbidden',
+                'message' => 'Your not the player'
             ], 403);
         }
 
+        Auth::login($user->tokenable);
         return $next($request);
     }
 }

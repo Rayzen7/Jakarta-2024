@@ -19,9 +19,12 @@ class UserController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function showUser($username)
     {
-        //
+        $user = User::where('name', $username)->firstOrFail();
+        return response()->json([
+            'username' => $user->username
+        ]);
     }
 
     /**
@@ -29,6 +32,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request->all());
         $validateData = Validator::make($request->all(), [
             'username' => 'required|unique:users,username',
             'password' => 'required',            
@@ -44,13 +48,13 @@ class UserController extends Controller
         }
 
         $user = User::create([
-            'username' => $request->username,
-            'password' => $request->password,
+            "username" => $request->username,
+            "password" => $request->password,
         ]);
 
         return response()->json([
             "status" => 'success',
-            'username' => $user->username
+            "username" => $user->username
         ], 201);
     }
 

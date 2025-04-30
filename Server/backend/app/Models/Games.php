@@ -27,4 +27,14 @@ class Games extends Model
     {
         return $this->belongsTo(User::class, 'created_by');
     }
+
+    /**
+     * Get all of the comments for the Games
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function version()
+    {
+        return $this->hasMany(GameVersion::class, 'game_id');
+    }
 }
